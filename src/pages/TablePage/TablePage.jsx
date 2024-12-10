@@ -36,11 +36,34 @@ const TablePage = () => {
     };
 
     if (loading) {
-        return <Typography>Загрузка данных...</Typography>;
+        return (
+            <Typography
+                sx={{
+                    textAlign: "center",
+                    marginTop: "20px",
+                    fontSize: "34px",
+                    fontWeight: "bold",
+                }}
+            >
+                Загрузка данных...
+            </Typography>
+        );
     }
 
     if (error) {
-        return <Typography color="error">Ошибка загрузки: {error}</Typography>;
+        return (
+            <Typography
+                color="error"
+                sx={{
+                    textAlign: "center",
+                    marginTop: "20px",
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                }}
+            >
+                Ошибка загрузки: {error}
+            </Typography>
+        );
     }
 
     return (
@@ -100,25 +123,26 @@ const TablePage = () => {
                             align="center"
                             sx={{border: "1px solid black", width: "15%"}}
                         >
-                            Учёная степень/звание
+                            Учёная степень/звание, специальное звание
                         </TableCell>
                         <TableCell
                             align="center"
                             sx={{border: "1px solid black", width: "20%"}}
                         >
-                            Наименование работы
+                            Наименование работы (разработки)
                         </TableCell>
                         <TableCell
                             align="center"
                             sx={{border: "1px solid black", width: "20%"}}
                         >
-                            Направление работы
+                            Направление и характер работы (область науки и
+                            техники)
                         </TableCell>
                         <TableCell
                             align="center"
                             sx={{border: "1px solid black", width: "25%"}}
                         >
-                            Информация о работе
+                            Анализ публикаций
                         </TableCell>
                     </tr>
                     {formData.map((row, index) =>

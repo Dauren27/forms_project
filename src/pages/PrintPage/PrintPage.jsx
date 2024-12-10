@@ -30,11 +30,34 @@ const PrintPage = () => {
     }, []);
 
     if (loading) {
-        return <Typography>Загрузка данных...</Typography>;
+        return (
+            <Typography
+                sx={{
+                    textAlign: "center",
+                    marginTop: "20px",
+                    fontSize: "34px",
+                    fontWeight: "bold",
+                }}
+            >
+                Загрузка данных...
+            </Typography>
+        );
     }
 
     if (error) {
-        return <Typography color="error">Ошибка загрузки: {error}</Typography>;
+        return (
+            <Typography
+                color="error"
+                sx={{
+                    textAlign: "center",
+                    marginTop: "20px",
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                }}
+            >
+                Ошибка загрузки: {error}
+            </Typography>
+        );
     }
 
     // useEffect(() => {
@@ -117,7 +140,8 @@ const PrintPage = () => {
                             align="center"
                             sx={{border: "1px solid black", width: "20%"}}
                         >
-                            Наименование и характер работы (разработки)
+                            Направление и характер работы (область науки и
+                            техники)
                         </TableCell>
                         <TableCell
                             align="center"
