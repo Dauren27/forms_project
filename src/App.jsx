@@ -12,6 +12,7 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import {useState} from "react";
 import {Navigate} from "react-router-dom";
 import {AuthProvider, useAuth} from "./context/AuthContext";
+import ExpertTablePage from "./pages/ExpertTablePage/ExpertTablePage";
 
 const PrivateRoute = ({element, isAuthenticated}) => {
     return isAuthenticated ? element : <Navigate to="/auth" />;
@@ -24,6 +25,8 @@ const App = () => {
                 {/* Публичные маршруты */}
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/send-application" element={<FormPage />} />
+
+                <Route path="/expert-table" element={<ExpertTablePage />} />
 
                 {/* Приватные маршруты */}
                 <Route

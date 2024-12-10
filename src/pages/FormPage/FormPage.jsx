@@ -155,7 +155,6 @@ const FormPage = () => {
                             type="date"
                             fullWidth
                             helperText="Нажмите на иконку календаря для выбора даты"
-
                             InputLabelProps={{shrink: true}}
                             value={formData.submissionDate}
                             

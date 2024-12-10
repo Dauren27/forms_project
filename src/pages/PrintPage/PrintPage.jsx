@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Box, Typography, TableCell, TableRow} from "@mui/material";
+import {
+    Box,
+    Typography,
+    TableCell,
+    TableRow,
+    CircularProgress,
+} from "@mui/material";
 
 const PrintPage = () => {
     const [formData, setFormData] = useState([]);
@@ -31,16 +37,25 @@ const PrintPage = () => {
 
     if (loading) {
         return (
-            <Typography
-                sx={{
-                    textAlign: "center",
-                    marginTop: "20px",
-                    fontSize: "34px",
-                    fontWeight: "bold",
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                Загрузка данных...
-            </Typography>
+                <Typography
+                    sx={{
+                        textAlign: "center",
+                        marginTop: "20px",
+                        fontSize: "34px",
+                        fontWeight: "bold",
+                    }}
+                >
+                    Загрузка данных...
+                </Typography>
+                <CircularProgress />
+            </div>
         );
     }
 

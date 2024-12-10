@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Typography, TableCell, TableRow, Button} from "@mui/material";
+import {Box, Typography, TableCell, TableRow, Button, CircularProgress} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 const TablePage = () => {
@@ -37,16 +37,19 @@ const TablePage = () => {
 
     if (loading) {
         return (
-            <Typography
-                sx={{
-                    textAlign: "center",
-                    marginTop: "20px",
-                    fontSize: "34px",
-                    fontWeight: "bold",
-                }}
-            >
-                Загрузка данных...
-            </Typography>
+            <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                <Typography
+                    sx={{
+                        textAlign: "center",
+                        marginTop: "20px",
+                        fontSize: "34px",
+                        fontWeight: "bold",
+                    }}
+                >
+                    Загрузка данных...
+                </Typography>
+                <CircularProgress />
+            </div>
         );
     }
 
