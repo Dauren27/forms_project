@@ -23,34 +23,15 @@ const App = () => {
         createRoutesFromElements(
             <Route>
                 {/* Публичные маршруты */}
+                <Route path="*" element={<FormPage />} />
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/send-application" element={<FormPage />} />
-
                 <Route path="/expert-table" element={<ExpertTablePage />} />
-
                 {/* Приватные маршруты */}
-                <Route
-                    path="/list"
-                    element={
-                        <PrivateRoute
-                            element={<TablePage />}
-                            isAuthenticated={sessionStorage.getItem("isAuth")}
-                        />
-                    }
-                />
-                <Route
-                    path="/list/print"
-                    element={
-                        <PrivateRoute
-                            element={<PrintPage />}
-                            isAuthenticated={sessionStorage.getItem("isAuth")}
-                        />
-                    }
-                />
+                <Route path="/list" element={<TablePage />} />
+                <Route path="/list/print" element={<PrintPage />} />
                 <Route path="/success-page" element={<SuccessPage />} />
-
                 {/* Редирект для неизвестных маршрутов */}
-                <Route path="*" element={<FormPage />} />
             </Route>
         )
     );
