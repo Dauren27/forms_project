@@ -9,7 +9,14 @@ import {
 import React, {useEffect, useState} from "react";
 
 const ExpertTablePage = () => {
-    const [formData, setFormData] = useState([]);
+    const [formData, setFormData] = useState([
+        {
+            workName: "123",
+        },
+        {
+            workName: "1234",
+        },
+    ]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [scores, setScores] = useState({});
@@ -17,25 +24,24 @@ const ExpertTablePage = () => {
 
     useEffect(() => {
         // Функция для получения данных с API
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch(
-                    "https://scientific-registration.onrender.com/registrations"
-                );
-                if (!response.ok) {
-                    throw new Error(`Ошибка: ${response.statusText}`);
-                }
-                const data = await response.json();
-                setFormData(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        // const fetchData = async () => {
+        //     try {
+        //         setLoading(true);
+        //         const response = await fetch(
+        //             "https://scientific-registration.onrender.com/registrations"
+        //         );
+        //         if (!response.ok) {
+        //             throw new Error(`Ошибка: ${response.statusText}`);
+        //         }
+        //         const data = await response.json();
+        //         setFormData(data);
+        //     } catch (err) {
+        //         setError(err.message);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
+        // fetchData();
     }, []);
 
     const handleInputChange = (index, field, value) => {

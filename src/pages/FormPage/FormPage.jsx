@@ -33,7 +33,7 @@ const FormPage = () => {
         workName: "",
         applicants: [{fullName: "", specialTitle: ""}],
         workDirection: "",
-        additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus}, с квартилем не ниже Q3 ${publicationData.webScience}.`,
+        additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3.`,
     });
 
     const handleTextareaChange = (field, value) => {
@@ -99,7 +99,7 @@ const FormPage = () => {
     useEffect(() => {
         setFormData((prev) => ({
             ...prev,
-            additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus}, с квартилем не ниже Q3 ${publicationData.webScience}.`,
+            additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3.`,
         }));
     }, [publicationData]);
 
@@ -157,7 +157,6 @@ const FormPage = () => {
                             helperText="Нажмите на иконку календаря для выбора даты"
                             InputLabelProps={{shrink: true}}
                             value={formData.submissionDate}
-                            
                             onChange={(e) =>
                                 handleInputChange(
                                     "submissionDate",
@@ -306,7 +305,7 @@ const FormPage = () => {
                             padding: "16.5px 14px",
                         }}
                     >
-                        <Typography>Общее кол. публикаций {" "}</Typography>
+                        <Typography>Общее кол. публикаций </Typography>
                         <TextField
                             type="number"
                             value={publicationData.totalPublications}
@@ -359,8 +358,8 @@ const FormPage = () => {
                             inputProps={{
                                 style: {textAlign: "center", padding: 0},
                             }}
-                        />,
-                        <Typography>патентов</Typography>
+                        />
+                        ,<Typography>патентов</Typography>
                         <TextField
                             type="number"
                             value={publicationData.patents}
@@ -407,8 +406,12 @@ const FormPage = () => {
                             inputProps={{
                                 style: {textAlign: "center", padding: 0},
                             }}
-                        />, 
-                        <Typography>{" "}в т.ч. в базе Scopus и Web of Science </Typography>
+                        />
+                        ,
+                        <Typography>
+                            {" "}
+                            в т.ч. в базе Scopus и Web of Science{" "}
+                        </Typography>
                         <TextField
                             type="number"
                             value={publicationData.scopus}
@@ -423,25 +426,7 @@ const FormPage = () => {
                                 style: {textAlign: "center", padding: 0},
                             }}
                         />
-                        <Typography>, с квартилем не ниже Q3 </Typography>
-                        <TextField
-                            type="number"
-                            value={publicationData.webScience}
-                            onChange={(e) =>
-                                handleTextareaChange(
-                                    "webScience",
-                                    e.target.value
-                                )
-                            }
-                            sx={{width: "40px"}}
-                            // placeholder="0"
-                            variant="standard"
-                            required
-                            inputProps={{
-                                style: {textAlign: "center", padding: 0},
-                            }}
-                        />
-                        .
+                        <Typography> с квартилем не ниже Q3.</Typography>
                     </Box>
                     <Grid item xs={12}>
                         {loading ? (
