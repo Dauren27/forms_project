@@ -1,6 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Box, Typography, TableCell, TableRow, Button, CircularProgress} from "@mui/material";
+import {
+    Box,
+    Typography,
+    TableCell,
+    TableRow,
+    Button,
+    CircularProgress,
+} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import Header from "../../components/Header/Header";
 
 const TablePage = () => {
     const navigate = useNavigate();
@@ -37,7 +45,13 @@ const TablePage = () => {
 
     if (loading) {
         return (
-            <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }}
+            >
                 <Typography
                     sx={{
                         textAlign: "center",
@@ -70,151 +84,154 @@ const TablePage = () => {
     }
 
     return (
-        <Box sx={{padding: "50px", fontFamily: "Arial, sans-serif"}}>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 2,
-                }}
-            >
-                <Typography
+        <Box>
+            <Header />
+            <Box sx={{padding: "50px", fontFamily: "Arial, sans-serif"}}>
+                <Box
                     sx={{
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        color: "#1565C0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 2,
                     }}
                 >
-                    Заявки на государственную премию
-                </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handlePrint}
-                    sx={{
-                        backgroundColor: "#1565C0",
-                        ":hover": {backgroundColor: "#004ba0"},
-                    }}
-                >
-                    Распечатать
-                </Button>
-            </Box>
+                    <Typography
+                        sx={{
+                            fontSize: "24px",
+                            fontWeight: "bold",
+                            color: "#1565C0",
+                        }}
+                    >
+                        Заявки на государственную премию
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handlePrint}
+                        sx={{
+                            backgroundColor: "#1565C0",
+                            ":hover": {backgroundColor: "#004ba0"},
+                        }}
+                    >
+                        Распечатать
+                    </Button>
+                </Box>
 
-            <table>
-                <tbody>
-                    <tr>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "3%"}}
-                        >
-                            №
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "7%"}}
-                        >
-                            Дата поступления
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "10%"}}
-                        >
-                            Ф.И.О соискателя(ей)
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "15%"}}
-                        >
-                            Учёная степень/звание, специальное звание
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "20%"}}
-                        >
-                            Наименование работы (разработки)
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "20%"}}
-                        >
-                            Направление и характер работы (область науки и
-                            техники)
-                        </TableCell>
-                        <TableCell
-                            align="center"
-                            sx={{border: "1px solid black", width: "25%"}}
-                        >
-                            Анализ публикаций
-                        </TableCell>
-                    </tr>
-                    {formData.map((row, index) =>
-                        row.applicants.map((applicant, i) => (
-                            <TableRow key={`${index}-${i}`}>
-                                {i === 0 && (
-                                    <>
-                                        <TableCell
-                                            rowSpan={row.applicants.length}
-                                            align="center"
-                                            sx={{border: "1px solid black"}}
-                                        >
-                                            {index + 1}
-                                        </TableCell>
-                                        <TableCell
-                                            rowSpan={row.applicants.length}
-                                            align="center"
-                                            sx={{border: "1px solid black"}}
-                                        >
-                                            {row.submissionDate}
-                                        </TableCell>
-                                    </>
-                                )}
-                                <TableCell
-                                    sx={{
-                                        border: "1px solid black",
-                                        whiteSpace: "pre-line",
-                                    }}
-                                >
-                                    {applicant.fullName.replace(/ /g, "\n")}
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        border: "1px solid black",
-                                        whiteSpace: "pre-line",
-                                    }}
-                                >
-                                    {applicant.specialTitle}
-                                </TableCell>
-                                {i === 0 && (
-                                    <>
-                                        <TableCell
-                                            rowSpan={row.applicants.length}
-                                            align="center"
-                                            sx={{border: "1px solid black"}}
-                                        >
-                                            {row.workName}
-                                        </TableCell>
-                                        <TableCell
-                                            rowSpan={row.applicants.length}
-                                            align="center"
-                                            sx={{border: "1px solid black"}}
-                                        >
-                                            {row.workDirection}
-                                        </TableCell>
-                                        <TableCell
-                                            rowSpan={row.applicants.length}
-                                            align="center"
-                                            sx={{border: "1px solid black"}}
-                                        >
-                                            {row.additionalInfo}
-                                        </TableCell>
-                                    </>
-                                )}
-                            </TableRow>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "3%"}}
+                            >
+                                №
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "7%"}}
+                            >
+                                Дата поступления
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "10%"}}
+                            >
+                                Ф.И.О соискателя(ей)
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "15%"}}
+                            >
+                                Учёная степень/звание, специальное звание
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "20%"}}
+                            >
+                                Наименование работы (разработки)
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "20%"}}
+                            >
+                                Направление и характер работы (область науки и
+                                техники)
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{border: "1px solid black", width: "25%"}}
+                            >
+                                Анализ публикаций
+                            </TableCell>
+                        </tr>
+                        {formData.map((row, index) =>
+                            row.applicants.map((applicant, i) => (
+                                <TableRow key={`${index}-${i}`}>
+                                    {i === 0 && (
+                                        <>
+                                            <TableCell
+                                                rowSpan={row.applicants.length}
+                                                align="center"
+                                                sx={{border: "1px solid black"}}
+                                            >
+                                                {index + 1}
+                                            </TableCell>
+                                            <TableCell
+                                                rowSpan={row.applicants.length}
+                                                align="center"
+                                                sx={{border: "1px solid black"}}
+                                            >
+                                                {row.submissionDate}
+                                            </TableCell>
+                                        </>
+                                    )}
+                                    <TableCell
+                                        sx={{
+                                            border: "1px solid black",
+                                            whiteSpace: "pre-line",
+                                        }}
+                                    >
+                                        {applicant.fullName.replace(/ /g, "\n")}
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{
+                                            border: "1px solid black",
+                                            whiteSpace: "pre-line",
+                                        }}
+                                    >
+                                        {applicant.specialTitle}
+                                    </TableCell>
+                                    {i === 0 && (
+                                        <>
+                                            <TableCell
+                                                rowSpan={row.applicants.length}
+                                                align="center"
+                                                sx={{border: "1px solid black"}}
+                                            >
+                                                {row.workName}
+                                            </TableCell>
+                                            <TableCell
+                                                rowSpan={row.applicants.length}
+                                                align="center"
+                                                sx={{border: "1px solid black"}}
+                                            >
+                                                {row.workDirection}
+                                            </TableCell>
+                                            <TableCell
+                                                rowSpan={row.applicants.length}
+                                                align="center"
+                                                sx={{border: "1px solid black"}}
+                                            >
+                                                {row.additionalInfo}
+                                            </TableCell>
+                                        </>
+                                    )}
+                                </TableRow>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </Box>
         </Box>
     );
 };

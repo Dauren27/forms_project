@@ -4,66 +4,49 @@ import {
     CircularProgress,
     TableCell,
     Typography,
-    TextField,
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import Header from "../../components/Header/Header";
 
 const ExpertTablePage = () => {
-    const [formData, setFormData] = useState([
-        {
-            workName: "123",
-        },
-        {
-            workName: "1234",
-        },
-    ]);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [scores, setScores] = useState({});
-    const [submittedRows, setSubmittedRows] = useState([]); // Массив для отслеживания отправленных строк
+
+    const changePoint = (id) => {
+        navigate(`/expert/form/${id}`);
+    };
 
     useEffect(() => {
-        // Функция для получения данных с API
-        // const fetchData = async () => {
-        //     try {
-        //         setLoading(true);
-        //         const response = await fetch(
-        //             "https://scientific-registration.onrender.com/registrations"
-        //         );
-        //         if (!response.ok) {
-        //             throw new Error(`Ошибка: ${response.statusText}`);
-        //         }
-        //         const data = await response.json();
-        //         setFormData(data);
-        //     } catch (err) {
-        //         setError(err.message);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
-        // fetchData();
+        const fetchData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const token = JSON.parse(sessionStorage.getItem("token"));
+                const response = await fetch(
+                    `https://scientific-registration.onrender.com/reviews`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log(`Bearer ${token}`);
+                if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.statusText}`);
+                }
+                const datta = await response.json();
+                setFormData(datta);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
     }, []);
-
-    const handleInputChange = (index, field, value) => {
-        setScores((prev) => ({
-            ...prev,
-            [index]: {
-                ...prev[index],
-                [field]: value,
-            },
-        }));
-    };
-
-    const handleSubmit = (index) => {
-        console.log("Отправлено для строки:", index, scores[index] || {});
-        // Пометить строку как отправленную
-        setSubmittedRows((prev) => [...prev, index]);
-    };
-
-    const isRowDisabled = (index) => {
-        // Заблокировать строку, если предыдущая не была отправлена
-        return index > 0 && !submittedRows.includes(index - 1);
-    };
 
     if (loading) {
         return (
@@ -106,220 +89,287 @@ const ExpertTablePage = () => {
     }
 
     return (
-        <Box
-            sx={{
-                padding: "20mm",
-                "@media print": {
-                    padding: "0",
-                    "@page": {
-                        size: "A4 landscape",
-                        margin: "20mm",
+        <Box>
+            <Header />
+
+            <Box
+                sx={{
+                    padding: "50px",
+                    "@media print": {
+                        padding: "0",
+                        "@page": {
+                            size: "A4 landscape",
+                            margin: 0,
+                            margin: "20mm",
+                        },
                     },
-                },
-            }}
-        >
-            <Typography
-                sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    marginBottom: 1,
                 }}
             >
-                Экспертиза материалов научных работ в секции "Развитие
-                инженерно-технических, математических, горно-геологических наук"
-            </Typography>
-            <Typography
-                sx={{
-                    fontSize: "16px",
-                    fontWeight: "medium",
-                    textAlign: "center",
-                    marginBottom: 3,
-                }}
-            >
-                Регистрационный лист научной секции "Развитие
-                инженерно-технических, математических, горно-геологических наук"
-            </Typography>
-            <table style={{borderCollapse: "collapse", width: "100%"}}>
-                <thead>
-                    <tr>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "3%",
-                            }}
-                            rowSpan="2"
-                        >
-                            №
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "15%",
-                            }}
-                            rowSpan="2"
-                        >
-                            Наименование работы
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                            }}
-                            colSpan="5"
-                        >
-                            Экспертное заключение в баллах по критериям оценки
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "15%",
-                            }}
-                            rowSpan="2"
-                        >
-                            Итоговый балл и заключение
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                            rowSpan="2"
-                        >
-                            Действия
-                        </th>
-                    </tr>
-                    <tr>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                        >
-                            Актуальность
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                        >
-                            Новизна
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                        >
-                            Значимость
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                        >
-                            Публикации
-                        </th>
-                        <th
-                            style={{
-                                border: "1px solid black",
-                                textAlign: "center",
-                                width: "10%",
-                            }}
-                        >
-                            Реализация
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {formData.map((row, index) => (
-                        <tr key={index}>
-                            <td
+                <Typography
+                    sx={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        marginBottom: 1,
+                    }}
+                >
+                    Государственная премия в области науки и техники КР
+                </Typography>
+                <Typography
+                    sx={{
+                        fontSize: "20px",
+                        fontWeight: "semi-bold",
+                        textAlign: "center",
+                        marginBottom: 3,
+                    }}
+                >
+                    Экспертиза материалов научных работ в секции "Развитие
+                    инженерно-технических, математических, горно-геологических
+                    наук"
+                </Typography>
+                <table style={{borderCollapse: "collapse", width: "100%"}}>
+                    <thead>
+                        <tr>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "3%",
+                                }}
+                                rowSpan="2"
+                            >
+                                №
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "15%",
+                                }}
+                                rowSpan="2"
+                            >
+                                Наименование работы (разработки)
+                            </TableCell>
+                            <TableCell
                                 style={{
                                     border: "1px solid black",
                                     textAlign: "center",
                                 }}
+                                colSpan="5"
                             >
-                                {index + 1}
-                            </td>
-                            <td
+                                Экспертные оценки в баллах по критериям
+                            </TableCell>
+                            <TableCell
                                 style={{
                                     border: "1px solid black",
                                     textAlign: "center",
+                                    width: "10%",
+                                }}
+                                rowSpan="2"
+                            >
+                                Итоговый балл
+                            </TableCell>
+                            {/* <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "15%",
+                                }}
+                                rowSpan="2"
+                            >
+                                Заключение
+                            </TableCell> */}
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "11%",
+                                }}
+                                rowSpan="2"
+                            ></TableCell>
+                        </tr>
+                        <tr>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "10%",
                                 }}
                             >
-                                {row.workName}
-                            </td>
-                            {[
-                                "relevance",
-                                "novelty",
-                                "significance",
-                                "publications",
-                                "realization",
-                            ].map((field) => (
-                                <td
+                                Соответствие актуальности и цели работы
+                                (разработки) государственным программам и
+                                мировым трендам развития науки и техники
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "10%",
+                                }}
+                            >
+                                Уровень и достоверность результатов,
+                                соответствие научной новизны требованиям
+                                современной науки
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "10%",
+                                }}
+                            >
+                                Научно-практическая значимость полученных
+                                результатов
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "10%",
+                                }}
+                            >
+                                Масштаб публикаций и уровень их вкалада в
+                                результатах работы (разработки)
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    border: "1px solid black",
+                                    textAlign: "center",
+                                    width: "10%",
+                                }}
+                            >
+                                Потенциал внедрения
+                            </TableCell>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {formData.map((row, index) => (
+                            <tr key={row?.id}>
+                                <TableCell
                                     style={{
                                         border: "1px solid black",
                                         textAlign: "center",
                                     }}
-                                    key={field}
                                 >
-                                    <TextField
-                                        type="number"
-                                        size="small"
-                                        disabled={isRowDisabled(index)} // Заблокировать, если строка недоступна
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                index,
-                                                field,
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                </td>
-                            ))}
-                            <td
-                                style={{
-                                    border: "1px solid black",
-                                    textAlign: "center",
-                                }}
-                            >
-                                {scores[index]
-                                    ? Object.values(scores[index]).reduce(
-                                          (sum, value) =>
-                                              sum + (parseInt(value) || 0),
-                                          0
-                                      )
-                                    : 0}
-                            </td>
-                            <td
-                                style={{
-                                    border: "1px solid black",
-                                    textAlign: "center",
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    disabled={isRowDisabled(index)} // Заблокировать кнопку
-                                    onClick={() => handleSubmit(index)}
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
                                 >
-                                    Отправить
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                    {row.workName}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven
+                                        ? row?.relevanceScore
+                                        : "-"}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven
+                                        ? row?.resultsAndNoveltyScore
+                                        : "-"}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven
+                                        ? row?.practicalSignificanceScore
+                                        : "-"}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven
+                                        ? row?.publicationsCompletenessScore
+                                        : "-"}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven
+                                        ? row?.implementationProspectsScore
+                                        : "-"}
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven ? row?.totalScore : "-"}
+                                </TableCell>
+                                {/* <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {row?.pointGiven ? row?.conclusion : "-"}
+                                </TableCell> */}
+                                <TableCell
+                                    style={{
+                                        border: "1px solid black",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {!row?.pointGiven ? (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => changePoint(row?.id)}
+                                            sx={{
+                                                backgroundColor: "#1565C0",
+                                                ":hover": {
+                                                    backgroundColor: "#004ba0",
+                                                },
+                                                textTransform: "none",
+                                            }}
+                                        >
+                                            Выставить баллы
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => changePoint(row?.id)}
+                                            sx={{
+                                                backgroundColor: "#1565C0",
+                                                ":hover": {
+                                                    backgroundColor: "#004ba0",
+                                                },
+                                                textTransform: "none",
+                                            }}
+                                        >
+                                            Изменить баллы
+                                        </Button>
+                                    )}
+                                </TableCell>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </Box>
         </Box>
     );
 };

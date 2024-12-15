@@ -147,13 +147,13 @@ const PrintPage = () => {
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "20%"}}
+                            sx={{border: "1px solid black", width: "17%"}}
                         >
                             Наименование работы (разработки)
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "20%"}}
+                            sx={{border: "1px solid black", width: "23%"}}
                         >
                             Направление и характер работы (область науки и
                             техники)
