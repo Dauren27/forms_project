@@ -13,6 +13,7 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import ExpertTablePage from "./pages/ExpertTablePage/ExpertTablePage";
 import ExpertFormPage from "./pages/ExpertFormPage/ExpertFormPage";
 import {useSelector} from "react-redux";
+import ResultsPage from "./pages/ResultsPage/ResultsPage";
 
 const App = () => {
     const {isAuth} = useSelector((state) => state.auth);
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/list" element={<TablePage />} />
             <Route path="/list/print" element={<PrintPage />} />
             <Route path="/expert/list" element={<ExpertTablePage />} />
+            <Route path="/expert/results" element={<ResultsPage />} />
             <Route path="/expert/form/:id" element={<ExpertFormPage />} />
             <Route path="*" element={<Navigate to="/auth" />} />
             <Route path="/auth" element={<AuthPage />} />

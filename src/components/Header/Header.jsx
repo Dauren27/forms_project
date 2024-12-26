@@ -52,6 +52,18 @@ const Header = () => (
                 >
                     Экспертная оценка
                 </NavLink>
+                <NavLink
+                    to="/expert/results"
+                    style={({isActive}) => ({
+                        textDecoration: isActive ? "underline" : "none",
+                        color: isActive ? "#1565C0" : "#000",
+                        fontSize: "20px",
+                        fontWeight: "500",
+                    })}
+                    className="nav-link"
+                >
+                    Экспертное заключение
+                </NavLink>
             </Box>
             <Button
                 variant="outlined"

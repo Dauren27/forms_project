@@ -91,7 +91,7 @@ const PrintPage = () => {
                     "@page": {
                         size: "A4 landscape",
                         margin: 0,
-                        margin: "20mm",
+                        margin: "15mm",
                     },
                 },
             }}
@@ -129,7 +129,7 @@ const PrintPage = () => {
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "7%"}}
+                            sx={{border: "1px solid black", width: "5%"}}
                         >
                             Дата поступления
                         </TableCell>
@@ -147,20 +147,20 @@ const PrintPage = () => {
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "17%"}}
+                            sx={{border: "1px solid black", width: "15%"}}
                         >
                             Наименование работы (разработки)
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "23%"}}
+                            sx={{border: "1px solid black", width: "29%"}}
                         >
                             Направление и характер работы (область науки и
                             техники)
                         </TableCell>
                         <TableCell
                             align="center"
-                            sx={{border: "1px solid black", width: "25%"}}
+                            sx={{border: "1px solid black", width: "23%"}}
                         >
                             Анализ публикаций
                         </TableCell>
@@ -185,6 +185,7 @@ const PrintPage = () => {
                                                 align="center"
                                                 sx={{
                                                     border: "1px solid black",
+                                                    padding: "2px !important"
                                                 }}
                                             >
                                                 {row.submissionDate}
@@ -258,7 +259,7 @@ const PrintPage = () => {
             </table>
             <Box sx={{marginTop: 4, fontSize: "14px"}}>
                 <Typography sx={{marginBottom: 2}}>
-                    Дата завершения приема документов "___" декабря 2024г.
+                    Дата завершения приема документов 11 декабря 2024г.
                 </Typography>
                 <Box
                     sx={{
