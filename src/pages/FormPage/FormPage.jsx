@@ -382,7 +382,7 @@ const FormPage = () => {
                                 style: {textAlign: "center", padding: 0},
                             }}
                         />
-                        <Typography>, монографии</Typography>
+                        <Typography>, монографий</Typography>
                         <TextField
                             type="number"
                             value={publicationData.monographs}
@@ -467,7 +467,7 @@ const FormPage = () => {
                                 style: {textAlign: "center", padding: 0},
                             }}
                         />
-                        <Typography> с квартилем не ниже Q3. </Typography>
+                        <Typography>, с квартилем не ниже Q3</Typography>
                         <TextField
                             type="number"
                             value={publicationData.highQuartil}
@@ -481,7 +481,7 @@ const FormPage = () => {
                             inputProps={{
                                 style: {textAlign: "center", padding: 0},
                             }}
-                        />
+                        /> .
                     </Box>
                     <Grid item xs={12}>
                         {loading ? (
