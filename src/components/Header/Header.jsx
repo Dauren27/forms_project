@@ -52,7 +52,7 @@ const Header = () => (
                 >
                     Экспертная оценка
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                     to="/expert/results"
                     style={({isActive}) => ({
                         textDecoration: isActive ? "underline" : "none",
@@ -63,7 +63,7 @@ const Header = () => (
                     className="nav-link"
                 >
                     Экспертное заключение
-                </NavLink>
+                </NavLink> */}
             </Box>
             <Button
                 variant="outlined"

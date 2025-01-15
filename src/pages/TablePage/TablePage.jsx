@@ -21,8 +21,15 @@ const TablePage = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
+                const token = JSON.parse(sessionStorage.getItem("token"));
+
                 const response = await fetch(
-                    "https://scientific-registration.onrender.com/registrations"
+                    "https://scientific-registration.onrender.com/registrations",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
                 );
                 if (!response.ok) {
                     throw new Error(`Ошибка: ${response.statusText}`);
@@ -90,20 +97,10 @@ const TablePage = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-end",
                         alignItems: "center",
-                        marginBottom: 2,
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: "24px",
-                            fontWeight: "bold",
-                            color: "#1565C0",
-                        }}
-                    >
-                        Заявки на государственную премию
-                    </Typography>
                     <Button
                         variant="contained"
                         color="primary"
@@ -115,6 +112,47 @@ const TablePage = () => {
                     >
                         Распечатать
                     </Button>
+                </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: 2,
+                    }}
+                >
+                    <div>
+                        {/* 
+                    <Typography
+                        sx={{
+                            fontSize: "24px",
+                            fontWeight: "bold",
+                            color: "#1565C0",
+                        }}
+                    >
+                        Заявки на государственную премию
+                    </Typography> */}
+                        <Typography
+                            sx={{
+                                fontSize: "20px",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                marginBottom: 1,
+                            }}
+                        >
+                            Государственная премия в области науки и техники КР
+                        </Typography>
+                        <Typography
+                            sx={{
+                                fontSize: "18px",
+                                fontWeight: "medium",
+                                textAlign: "center",
+                                marginBottom: 3,
+                            }}
+                        >
+                            Регистрационный лист научной секции "{formData?.sectionName}"
+                        </Typography>
+                    </div>
                 </Box>
 
                 <table>
@@ -164,7 +202,7 @@ const TablePage = () => {
                                 Анализ публикаций
                             </TableCell>
                         </tr>
-                        {formData.map((row, index) =>
+                        {formData?.registrations.map((row, index) =>
                             row.applicants.map((applicant, i) => (
                                 <TableRow key={`${index}-${i}`}>
                                     {i === 0 && (

@@ -123,9 +123,7 @@ const ExpertTablePage = () => {
                         marginBottom: 3,
                     }}
                 >
-                    Экспертиза материалов научных работ в секции "Развитие
-                    инженерно-технических, математических, горно-геологических
-                    наук"
+                    Экспертиза материалов научных работ в секции "{formData[0]?.sectionName}"
                 </Typography>
                 <table style={{borderCollapse: "collapse", width: "100%"}}>
                     <thead>

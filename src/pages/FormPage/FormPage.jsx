@@ -23,17 +23,20 @@ const FormPage = () => {
         scopus: "",
         webScience: "",
         certificates: "",
+        highQuartil: "",
     });
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [sections, setSections] = useState([]);
 
     const [formData, setFormData] = useState({
         submissionDate: "",
         workName: "",
         applicants: [{fullName: "", specialTitle: ""}],
         workDirection: "",
-        additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3.`,
+        sectionId: "",
+        additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3 ${publicationData.highQuartil}.`,
     });
 
     const handleTextareaChange = (field, value) => {
@@ -99,9 +102,25 @@ const FormPage = () => {
     useEffect(() => {
         setFormData((prev) => ({
             ...prev,
-            additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3.`,
+            additionalInfo: `Общее кол. публикаций ${publicationData.totalPublications}, в т.ч. учебников ${publicationData.textbooks}, монографии ${publicationData.monographs}, патентов ${publicationData.patents}, авт. свидетельств ${publicationData.certificates}, статей ${publicationData.articles}, в т.ч. в базе Scopus и Web of Science ${publicationData.scopus} с квартилем не ниже Q3 ${publicationData.highQuartil}.`,
         }));
     }, [publicationData]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get(
+                    "https://scientific-registration.onrender.com/sections"
+                );
+
+                console.log("Response:", response.data);
+                setSections(response.data);
+            } catch (err) {
+                console.error("Ошибка при отправке данных:", err);
+            }
+        }
+        fetchData();
+    }, []);
 
     return (
         <Box
@@ -144,11 +163,33 @@ const FormPage = () => {
                         textAlign: "center",
                     }}
                 >
-                    Регистрационный лист научной секции "Развитие
-                    инженерно-технических, математических, горно-геологических
-                    наук"
+                    Регистрационный лист
                 </Typography>
                 <Grid container spacing={2} alignSelf="center">
+                    <Grid item xs={12} sx={{marginBottom: "20px"}}>
+                        <TextField
+                            select
+                            fullWidth
+                            value={formData.sectionId}
+                            onChange={(e) =>
+                                handleInputChange("sectionId", e.target.value)
+                            }
+                            SelectProps={{
+                                native: true,
+                            }}
+                            required
+                        >
+                            <option value="" disabled>
+                                Выберите секцию
+                            </option>
+                            {sections.map((section) => (
+                                <option key={section.id} value={section.id}>
+                                    {section.name}
+                                </option>
+                            ))}
+                        </TextField>
+                    </Grid>
+
                     <Grid item xs={7}>
                         <TextField
                             label="Дата поступления"
@@ -426,7 +467,21 @@ const FormPage = () => {
                                 style: {textAlign: "center", padding: 0},
                             }}
                         />
-                        <Typography> с квартилем не ниже Q3.</Typography>
+                        <Typography> с квартилем не ниже Q3. </Typography>
+                        <TextField
+                            type="number"
+                            value={publicationData.highQuartil}
+                            onChange={(e) =>
+                                handleTextareaChange("highQuartil", e.target.value)
+                            }
+                            sx={{width: "40px"}}
+                            // placeholder="0"
+                            variant="standard"
+                            required
+                            inputProps={{
+                                style: {textAlign: "center", padding: 0},
+                            }}
+                        />
                     </Box>
                     <Grid item xs={12}>
                         {loading ? (

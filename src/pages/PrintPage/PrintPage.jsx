@@ -17,8 +17,15 @@ const PrintPage = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
+                const token = JSON.parse(sessionStorage.getItem("token"));
+
                 const response = await fetch(
-                    "https://scientific-registration.onrender.com/registrations"
+                    "https://scientific-registration.onrender.com/registrations",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
                 );
                 if (!response.ok) {
                     throw new Error(`Ошибка: ${response.statusText}`);
@@ -114,8 +121,7 @@ const PrintPage = () => {
                     marginBottom: 3,
                 }}
             >
-                Регистрационный лист научной секции "Развитие
-                инженерно-технических, математических, горно-геологических наук"
+                Регистрационный лист научной секции "{formData?.sectionName}"
             </Typography>
 
             <table>
@@ -165,7 +171,7 @@ const PrintPage = () => {
                             Анализ публикаций
                         </TableCell>
                     </tr>
-                    {formData.map((row, index) => {
+                    {formData?.registrations.map((row, index) => {
                         const applicantRows = row.applicants.map(
                             (applicant, i) => (
                                 <TableRow key={`${index}-${i}`}>
@@ -185,7 +191,7 @@ const PrintPage = () => {
                                                 align="center"
                                                 sx={{
                                                     border: "1px solid black",
-                                                    padding: "2px !important"
+                                                    padding: "2px !important",
                                                 }}
                                             >
                                                 {row.submissionDate}
@@ -259,7 +265,7 @@ const PrintPage = () => {
             </table>
             <Box sx={{marginTop: 4, fontSize: "14px"}}>
                 <Typography sx={{marginBottom: 2}}>
-                    Дата завершения приема документов 11 декабря 2024г.
+                    Дата завершения приема документов _______________г.
                 </Typography>
                 <Box
                     sx={{
@@ -271,7 +277,7 @@ const PrintPage = () => {
                     <Typography sx={{marginBottom: 2}}>
                         Руководитель секций
                     </Typography>
-                    <Typography>Торобеков Б.Г.</Typography>
+                    <Typography>____________________</Typography>
                 </Box>
                 <Typography>Секретарь секций</Typography>
             </Box>
